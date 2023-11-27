@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="mines.css">
+</head>
+<body>
+    <div class="gameboard-container">
+        <table id="gameboard"></table>
+    </div>
+    <form id="new-game-form">
+        <label for="difficulty" class="form-label">Difficulty:</label>
+        <select name="difficulty" id="difficulty" class="form-control">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+        <button type="submit">New Game</button>
+    </form>
+    <h1 id="game-message"></h1>
+    <script src="models.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

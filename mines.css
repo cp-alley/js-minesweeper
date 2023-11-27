@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+body {
+  background-color: aliceblue;
+}
+
+h1 {
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.gameboard-container {
+  border-top: 3px solid white;
+  border-left: 3px solid white;
+  border-bottom: 3px solid gray;
+  border-right: 3px solid gray;
+  background-color: gainsboro;
+  width: fit-content;
+  margin: 1rem auto;
+  padding: 5px;
+}
+
+table {
+  /* border-collapse: collapse; */
+  border-spacing: 0px;
+  font-size: 1.25rem;
+  background-color: gainsboro;
+  border-top: 3px solid gray;
+  border-left: 3px solid gray;
+  border-bottom: 3px solid white;
+  border-right: 3px solid white;
+}
+
+td {
+  height: 1.5rem;
+  width: 1.5rem;
+  text-align: center;
+  line-height: 1rem;
+  font-weight: bold;
+  /* background-color: rgb(200, 200, 200); */
+  background-color: gainsboro;
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  border-bottom: 2px solid gray;
+  border-right: 2px solid gray;
+}
+
+.clicked {
+  background-color: gainsboro;
+  box-shadow: none;
+  border: none;
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
+}
+
+.mine, 
+.flagged {
+  font-size: .75rem;
+  line-height: 1rem;
+  overflow: clip;
+}
+
+.count-1 {
+  color: blue;
+}
+
+.count-2 {
+  color: green;
+}
+
+.count-3 {
+  color: red;
+}
+
+.count-4 {
+  color: purple;
+}
+
+.count-5 {
+  color: maroon;
+}
+
+.count-6 {
+  color: teal;
+}
+
+.count-7 {
+  color: black;
+}
+
+.count-8 {
+  color: gray;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 10rem;
+}
+
+.form-label,
+.form-control,
+button {
+  margin-top: .5rem;
+}
+
+button {
+  width: fit-content;
+}
