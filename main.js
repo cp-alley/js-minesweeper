@@ -20,30 +20,29 @@ function displayBoard(board) {
   })
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+
+/** Show initial board on page load */
+function showInitialBoard() {
   game = new Game();
   displayBoard(game.board);
   showCells();
   addEventListeners();
-});
-
-/** Send coordinates of first click to game instance */
-function handleFirstClick(evt) {
-  console.log("first click=", evt.target);
-  const [tY, tX] = evt.target.id.split("-");
-  game.setMines(tY, tX);
-  game.checkCell(tY, tX);
-  showCells();
-  gameboard.addEventListener("click", handleClick);
 }
 
-/** Check cell and uncover it */
+/** Check cell and uncover it. Sets mines for first click of the game. Remove
+ *  event listeners and update message when game is over or won.
+*/
 function handleClick(evt) {
   console.log("next click=", evt.target);
   const [tY, tX] = evt.target.id.split("-");
-  game.checkCell(tY, tX);
+
+  if (game.firstClick) {
+    game.setMines(+tY, +tX);
+  }
+
+  game.checkCell(+tY, +tX);
   showCells();
-  console.log("won=", game.isWon())
+
   if (game.gameOver || game.isWon()) {
     gameboard.removeEventListener("click", handleClick);
     gameboard.removeEventListener("contextmenu", handleRightClick);
@@ -53,10 +52,11 @@ function handleClick(evt) {
 
 /** Allow right clicking to flag a cell */
 function handleRightClick(evt) {
-  console.log("right click=", evt.target);
   evt.preventDefault();
+
   const [tY, tX] = evt.target.id.split("-");
   const cell = game.board[tY][tX];
+
   cell.flagged = !cell.flagged;
   evt.target.classList.toggle("flagged");
   evt.target.innerText = cell.flagged ? flag : " ";
@@ -82,16 +82,20 @@ function showCells() {
 /** Create a new game on form submission */
 function newGame(evt) {
   evt.preventDefault();
+
   const level = difficultySelection.value;
   game = new Game(level);
-  const board = document.querySelector("tbody")
+
+  const board = document.querySelector("tbody");
   gameboard.removeChild(board);
+
   displayBoard(game.board);
   showCells();
   addEventListeners();
   clearMessage();
 }
 
+/** Show game message for win or loss */
 function displayMessage() {
   if (game.gameOver) {
     messageArea.innerText = "Game over!";
@@ -101,6 +105,7 @@ function displayMessage() {
   }
 }
 
+/** Clear game message */
 function clearMessage() {
   messageArea.innerText = "";
 }
@@ -109,8 +114,9 @@ function clearMessage() {
 function addEventListeners() {
   gameboard.removeEventListener("click", handleClick);
   gameboard.removeEventListener("contextmenu", handleRightClick);
-  gameboard.addEventListener("click", handleFirstClick, {once: true});
+  gameboard.addEventListener("click", handleClick);
   gameboard.addEventListener("contextmenu", handleRightClick);
 }
 
 newGameForm.addEventListener("submit", newGame);
+document.addEventListener("DOMContentLoaded", showInitialBoard);
