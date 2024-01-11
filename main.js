@@ -57,6 +57,7 @@ function handleRightClick(evt) {
   evt.preventDefault();
   const [tY, tX] = evt.target.id.split("-");
   const cell = game.board[tY][tX];
+  if (cell.clicked) return;
   cell.flagged = !cell.flagged;
   evt.target.classList.toggle("flagged");
   evt.target.innerText = cell.flagged ? flag : " ";
