@@ -22,6 +22,7 @@ class Game {
   height;
   width;
   mines;
+  firstClick = true;
   gameOver = false;
 
   constructor(difficulty = "easy") {
@@ -30,6 +31,7 @@ class Game {
     this.height = level.height;
     this.mines = level.mines;
     this.board = this.createBoard();
+    this.firstClick = true;
     console.log(this.board);
   }
 
@@ -85,17 +87,17 @@ class Game {
 
   /** Fill board with mines and updae mine counts at start of game */
   setMines(startY, startX) {
-    let i = 0;
-
-    const startNeighbors = this.getNeighbors(+startY, +startX).map(n => n.id);
+    this.firstClick = false;
+    const startNeighbors = this.getNeighbors(startY, startX).map(n => n.id);
     const neighborCells = new Set(startNeighbors);
-
+    
+    let i = 0;
     while (i < this.mines) {
       let y = Math.floor(Math.random() * this.height);
       let x = Math.floor(Math.random() * this.width);
 
       // Don't place a mine on the starting square or its nighbors
-      if (y === startY && x === startX || neighborCells.has(`${y}-${x}`)) continue;
+      if ((y === startY && x === startX) || neighborCells.has(`${y}-${x}`)) continue;
 
       const cell = this.board[y][x];
 
